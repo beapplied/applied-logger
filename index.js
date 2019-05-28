@@ -34,5 +34,5 @@ exports.debug = data => {
 }
 
 exports.sql = data => {
-    console.log(chalk.grey(`[SQLIZE] ${sqlFormatter(data)}`))
+    console.log(chalk.grey(`[SQLIZE] ${sqlFormatter.format(data)}`))
 }
