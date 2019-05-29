@@ -2,6 +2,7 @@
 
 const chalk = require("chalk")
 const colorize = require("json-colorizer")
+const sqlFormatter = require('sql-formatter')
 
 const JSONifier = string => {
     try {
@@ -33,5 +34,5 @@ exports.debug = data => {
 }
 
 exports.sql = data => {
-    console.log(chalk.grey(`[SQLIZE] ${JSONifier(data)}`))
+    console.log(chalk.grey(`[SQLIZE] ${sqlFormatter.format(data)}`))
 }
