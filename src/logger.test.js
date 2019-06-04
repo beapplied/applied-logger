@@ -1,7 +1,10 @@
-const logger = require("./logger")
+/* eslint-disable no-console */
+
+
 const chalk = require("chalk")
 const colorize = require("json-colorizer")
 const sqlFormatter = require('sql-formatter')
+const logger = require("./logger")
 
 const logSpy = jest.spyOn(console, "log")
 

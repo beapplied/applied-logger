@@ -5,6 +5,9 @@ const colorize = require("json-colorizer");
 const sqlFormatter = require('sql-formatter');
 
 const JSONifier = string => {
+    if( typeof string === 'object' ) {
+        return colorize(JSON.stringify(string))
+    }
     try {
         JSON.parse(string);
     } catch (e) {
@@ -13,8 +16,10 @@ const JSONifier = string => {
     return colorize(string)
 };
 
-exports.error = data => {
-    console.log(chalk.red(`🤯   [ERROR]  ${JSONifier(data)}`));
+exports.error = (...theArgs) => {
+    theArgs.forEach(arg => {
+        console.log(chalk.red(`🤯   [ERROR]  ${JSONifier(arg)}`));
+    });
 };
 
 exports.warn = data => {
