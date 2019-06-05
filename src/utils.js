@@ -48,6 +48,6 @@ exports.checkForSpecifiError = inputs => {
 
 exports.printer = (formatObj, input) => {
     console.log(
-        config[formatObj].function(`${config[formatObj].text} ${this.JSONifier(input)}`)
+        config[formatObj].function(`${config[formatObj].text} ${exports.JSONifier(input)}`)
     )
 }

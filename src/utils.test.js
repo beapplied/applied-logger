@@ -31,3 +31,10 @@ describe('checkForSpecifiError function', () => {
     })
 
 })
+
+describe('checkForSpecifiError function', () => {
+    test("it returns false when a single parameter is passed", () => {
+        expect(utils.checkForSpecifiError('hello')).toBe(false)
+    })
+
+})
