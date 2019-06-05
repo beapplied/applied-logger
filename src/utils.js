@@ -4,6 +4,8 @@ const colorize = require("json-colorizer")
 const config = require("./config")
 
 exports.JSONifier = input => {
+
+    // do we need it to run this check? if specific check already does
     if (input instanceof Error === true) {
         return input.stack
     }
@@ -46,8 +48,9 @@ exports.checkForSpecifiError = inputs => {
     return inputs.length === 2 && inputs[0] instanceof Error && !!inputs[1].url
 }
 
-exports.printer = (formatObj, input) => {
+exports.printer = (colorKey, input) => {
+
     console.log(
-        config[formatObj].function(`${config[formatObj].text} ${this.JSONifier(input)}`)
+        config[colorKey].function(`${config[colorKey].text} ${this.JSONifier(input)}`)
     )
 }

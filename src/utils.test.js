@@ -31,3 +31,14 @@ describe('checkForSpecifiError function', () => {
     })
 
 })
+
+describe('printer method', ()=>{
+
+    const dummyInput = { data: 'an error'}
+
+
+    test('its should take a string of the correct key value and an input object',()=>{
+        console.log(utils.printer('warn', dummyInput))
+     
+    })
+})
