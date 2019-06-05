@@ -3,18 +3,21 @@
 const colorize = require("json-colorizer")
 const config = require("./config")
 
+
+
 exports.JSONifier = input => {
-    if (input instanceof Error === true) {
-        return input.stack
-    }
+    if (input instanceof Error === true) return input.stack
+    
     if (typeof input === "object") {
         return colorize(JSON.stringify(input), { pretty: true })
     }
+   
     try {
         JSON.parse(input)
     } catch (e) {
         return input
     }
+  
     return colorize(input, { pretty: true })
 }
 
@@ -46,8 +49,11 @@ exports.checkForSpecifiError = inputs => {
     return inputs.length === 2 && inputs[0] instanceof Error && !!inputs[1].url
 }
 
-exports.printer = (formatObj, input) => {
-    console.log(
-        config[formatObj].function(`${config[formatObj].text} ${exports.JSONifier(input)}`)
+exports.printer = (colorKey, input) => {
+
+    if(!config[colorKey]) return this.JSONifier(input)
+
+    return console.log(
+        config[colorKey].function(`${config[colorKey].text} ${this.JSONifier(input)}`)
     )
 }
