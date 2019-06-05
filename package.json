@@ -2,7 +2,8 @@
   "name": "applied-logger",
   "version": "1.0.0",
   "description": "",
-  "main": "src/logger.js",
+  "main": "dist/applied-logger.cjs.js",
+  "module": "dist/applied-logger.esm.js",
   "scripts": {
     "test": "./node_modules/.bin/jest --testPathIgnorePatterns fuzzTest*",
     "lint": "./node_modules/.bin/eslint .",
@@ -30,6 +31,8 @@
     "husky": "^2.3.0",
     "json-colorizer": "^2.2.1",
     "prettier": "^1.17.1",
+    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-node-resolve": "^5.0.1",
     "sql-formatter": "^2.3.2",
     "testcheck": "^1.0.0-rc.2"
   },

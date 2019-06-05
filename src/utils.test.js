@@ -32,8 +32,6 @@ describe('checkForSpecifiError function', () => {
 
 })
 
-
-
 describe('JSONifier method', ()=>{
     
     const dummyError = new Error('coffee is healthy');
