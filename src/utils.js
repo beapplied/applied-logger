@@ -3,20 +3,21 @@
 const colorize = require("json-colorizer")
 const config = require("./config")
 
-exports.JSONifier = input => {
 
-    // do we need it to run this check? if specific check already does
-    if (input instanceof Error === true) {
-        return input.stack
-    }
+
+exports.JSONifier = input => {
+    if (input instanceof Error === true) return input.stack
+    
     if (typeof input === "object") {
         return colorize(JSON.stringify(input), { pretty: true })
     }
+   
     try {
         JSON.parse(input)
     } catch (e) {
         return input
     }
+  
     return colorize(input, { pretty: true })
 }
 
@@ -48,9 +49,12 @@ exports.checkForSpecifiError = inputs => {
     return inputs.length === 2 && inputs[0] instanceof Error && !!inputs[1].url
 }
 
+// perhaps we should add the config as a param for dependency injection?
 exports.printer = (colorKey, input) => {
 
-    console.log(
+    if(!config[colorKey]) return this.JSONifier(input)
+
+    return console.log(
         config[colorKey].function(`${config[colorKey].text} ${this.JSONifier(input)}`)
     )
 }
