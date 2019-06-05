@@ -55,10 +55,6 @@ describe('JSONifier method', ()=>{
         expect(typeof result).toBe('string')
     })
 
-    // test('if is a json input it should return a input',()=>{
-    //     expect(utils.JSONifier(dummyJSON)).toBe(dummyJSON)
-    // })
-
 })
 
 describe('printer method', ()=>{

@@ -49,7 +49,6 @@ exports.checkForSpecifiError = inputs => {
     return inputs.length === 2 && inputs[0] instanceof Error && !!inputs[1].url
 }
 
-// perhaps we should add the config as a param for dependency injection?
 exports.printer = (colorKey, input) => {
 
     if(!config[colorKey]) return this.JSONifier(input)
