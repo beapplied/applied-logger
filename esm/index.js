@@ -4,56 +4,27 @@ const chalk = require("chalk");
 const sqlFormatter = require("sql-formatter");
 const utils = require('./utils');
 
-exports.error = (...inputs) => {
+const baseLog = (type, inputs) => {
     if (utils.checkForSpecifiError(inputs)) {
-        utils.printer("error", utils.constuctError(inputs[0], inputs[1]));
+        utils.printer(type, utils.constuctError(inputs[0], inputs[1]));
     } else {
         inputs.forEach(arg => {
-            utils.printer("error", arg);
+            utils.printer(type, arg);
         });
     }
 };
 
-exports.warn = (...inputs) => {
-    if (utils.checkForSpecifiError(inputs)) {
-        utils.printer("warn", utils.constuctError(inputs[0], inputs[1]));
-    } else {
-        inputs.forEach(arg => {
-            utils.printer("warn", arg);
-        });
-    }
-};
+exports.error = (...inputs) => baseLog('error', inputs); 
 
-exports.info = (...inputs) => {
-    if (utils.checkForSpecifiError(inputs)) {
-        utils.printer("info", utils.constuctError(inputs[0], inputs[1]));
-    } else {
-        inputs.forEach(arg => {
-            utils.printer("info", arg);
-        });
-    }
-};
+exports.warn = (...inputs) => baseLog('warn', inputs); 
 
-exports.log = (...inputs) => {
-    if (utils.checkForSpecifiError(inputs)) {
-        utils.printer("log", utils.constuctError(inputs[0], inputs[1]));
-    } else {
-        inputs.forEach(arg => {
-            utils.printer("log", arg);
-        });
-    }
-};
+exports.info = (...inputs) => baseLog('info', inputs); 
 
-exports.debug = (...inputs) => {
-    if (utils.checkForSpecifiError(inputs)) {
-        utils.printer("debug", utils.constuctError(inputs[0], inputs[1]));
-    } else {
-        inputs.forEach(arg => {
-            utils.printer("debug", arg);
-        });
-    }
-};
+exports.log = (...inputs) => baseLog('log', inputs); 
 
+exports.debug = (...inputs) => baseLog('debug', inputs); 
+
+// only bespoke thing
 exports.sql = (...inputs) => {
     inputs.forEach(arg => {
         console.log(chalk.grey(`[SQLIZE] ${sqlFormatter.format(arg)}`));
