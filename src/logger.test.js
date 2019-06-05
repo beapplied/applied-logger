@@ -37,7 +37,7 @@ test("log uses the log pattern", () => {
     expect(console.log.mock.calls.length).toBe(0)
     logger.log("hello")
     expect(console.log.mock.calls.length).toBe(1)
-    expect(console.log.mock.calls[0][0]).toBe("🌳  [LOG]    hello")
+    expect(console.log.mock.calls[0][0]).toBe(chalk.magenta("🌳  [LOG]    hello"))
 })
 
 test("debug uses the debug pattern", () => {
@@ -65,8 +65,8 @@ test("logger can deal with js objects", () => {
     expect(console.log.mock.calls.length).toBe(0)
     logger.log(dummyObject)
     expect(console.log.mock.calls.length).toBe(1)
-    expect(console.log.mock.calls[0][0]).not.toBe("🌳  [LOG]    [object Object]")
-    expect(console.log.mock.calls[0][0]).toBe(`🌳  [LOG]    ${colorize(dummyObject)}`)
+    expect(console.log.mock.calls[0][0]).not.toBe(chalk.magenta("🌳  [LOG]    [object Object]"))
+    expect(console.log.mock.calls[0][0]).toBe(chalk.magenta(`🌳  [LOG]    ${colorize(dummyObject, { pretty: true })}`))
 })
 
 test("logger can deal with json", () => {
@@ -87,7 +87,7 @@ test("logger can deal with json", () => {
     expect(console.log.mock.calls.length).toBe(0)
     logger.log(dummyJSON)
     expect(console.log.mock.calls.length).toBe(1)
-    expect(console.log.mock.calls[0][0]).toBe(`🌳  [LOG]    ${colorize(dummyJSON)}`)
+    expect(console.log.mock.calls[0][0]).toBe(chalk.magenta(`🌳  [LOG]    ${colorize(dummyJSON, { pretty: true })}`))
 })
 
 test("logger.sql can deal with a string", () => {
@@ -108,8 +108,30 @@ test("logger.sql can deal with sql", () => {
 
 test("logger can deal with multiple arguments", () => {
     expect(console.log.mock.calls.length).toBe(0)
-    logger.error('hello', 'test')
-    expect(console.log.mock.calls.length).toBe(2)
+    logger.error('hello', 'test', [1,2,3])
+    expect(console.log.mock.calls.length).toBe(3)
     expect(console.log.mock.calls[0][0]).toBe(chalk.red("🤯   [ERROR]  hello"))
     expect(console.log.mock.calls[1][0]).toBe(chalk.red("🤯   [ERROR]  test"))
+    expect(console.log.mock.calls[2][0]).toBe(chalk.red(`🤯   [ERROR]  ${colorize([1,2,3], { pretty: true })}`))
 })
+
+test("if specific error log out once" ,()=>{
+    const dummyError = new Error('narwhales are better then unicorns');
+    const dummyRequest = {url: 'info-for-everything.com'}
+    logger.error(dummyError, dummyRequest)
+    expect(console.log.mock.calls.length).toBe(1)
+    expect(console.log.mock.calls[0][0]).toContain("🤯   [ERROR]")
+    expect(console.log.mock.calls[0][0]).toContain("info-for-everything.com")
+})
+
+
+test("if not specifc error return false" ,()=>{
+    const dummyError = new Error('narwhales are better then unicorns');
+    const dummyNotRequest = {noturl: 'info-for-everything.com'}
+    logger.error(dummyError, dummyNotRequest)
+    expect(console.log.mock.calls.length).toBe(2)
+    expect(console.log.mock.calls[0][0]).toBe(chalk.red(`🤯   [ERROR]  ${dummyError.stack}`))
+    expect(console.log.mock.calls[0][0]).not.toContain('info-for-everything.com')
+    expect(console.log.mock.calls[1][0]).toContain('info-for-everything.com')
+})
+
