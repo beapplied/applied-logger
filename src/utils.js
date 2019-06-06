@@ -51,9 +51,9 @@ exports.checkForSpecifiError = inputs => {
 
 exports.printer = (colorKey, input) => {
 
-    if(!config[colorKey]) return this.JSONifier(input)
+    if(!config[colorKey]) return exports.JSONifier(input)
 
     return console.log(
-        config[colorKey].function(`${config[colorKey].text} ${this.JSONifier(input)}`)
+        config[colorKey].function(`${config[colorKey].text} ${exports.JSONifier(input)}`)
     )
 }

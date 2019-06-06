@@ -6132,18 +6132,21 @@ var utils = createCommonjsModule(function (module, exports) {
 
 
 
+
+
 exports.JSONifier = input => {
-    if (input instanceof Error === true) {
-        return input.stack
-    }
+    if (input instanceof Error === true) return input.stack
+    
     if (typeof input === "object") {
         return lib(JSON.stringify(input), { pretty: true })
     }
+   
     try {
         JSON.parse(input);
     } catch (e) {
         return input
     }
+  
     return lib(input, { pretty: true })
 };
 
@@ -6175,10 +6178,13 @@ exports.checkForSpecifiError = inputs => {
     return inputs.length === 2 && inputs[0] instanceof Error && !!inputs[1].url
 };
 
-exports.printer = (formatObj, input) => {
-    console.log(
-        config[formatObj].function(`${config[formatObj].text} ${exports.JSONifier(input)}`)
-    );
+exports.printer = (colorKey, input) => {
+
+    if(!config[colorKey]) return exports.JSONifier(input)
+
+    return console.log(
+        config[colorKey].function(`${config[colorKey].text} ${exports.JSONifier(input)}`)
+    )
 };
 });
 var utils_1 = utils.JSONifier;
@@ -6192,56 +6198,27 @@ var utils_4 = utils.printer;
 
 
 
-var error = (...inputs) => {
+const baseLog = (type, inputs) => {
     if (utils.checkForSpecifiError(inputs)) {
-        utils.printer("error", utils.constuctError(inputs[0], inputs[1]));
+        utils.printer(type, utils.constuctError(inputs[0], inputs[1]));
     } else {
         inputs.forEach(arg => {
-            utils.printer("error", arg);
+            utils.printer(type, arg);
         });
     }
 };
 
-var warn = (...inputs) => {
-    if (utils.checkForSpecifiError(inputs)) {
-        utils.printer("warn", utils.constuctError(inputs[0], inputs[1]));
-    } else {
-        inputs.forEach(arg => {
-            utils.printer("warn", arg);
-        });
-    }
-};
+var error = (...inputs) => baseLog('error', inputs); 
 
-var info = (...inputs) => {
-    if (utils.checkForSpecifiError(inputs)) {
-        utils.printer("info", utils.constuctError(inputs[0], inputs[1]));
-    } else {
-        inputs.forEach(arg => {
-            utils.printer("info", arg);
-        });
-    }
-};
+var warn = (...inputs) => baseLog('warn', inputs); 
 
-var log = (...inputs) => {
-    if (utils.checkForSpecifiError(inputs)) {
-        utils.printer("log", utils.constuctError(inputs[0], inputs[1]));
-    } else {
-        inputs.forEach(arg => {
-            utils.printer("log", arg);
-        });
-    }
-};
+var info = (...inputs) => baseLog('info', inputs); 
 
-var debug = (...inputs) => {
-    if (utils.checkForSpecifiError(inputs)) {
-        utils.printer("debug", utils.constuctError(inputs[0], inputs[1]));
-    } else {
-        inputs.forEach(arg => {
-            utils.printer("debug", arg);
-        });
-    }
-};
+var log = (...inputs) => baseLog('log', inputs); 
 
+var debug = (...inputs) => baseLog('debug', inputs); 
+
+// only bespoke thing
 var sql = (...inputs) => {
     inputs.forEach(arg => {
         console.log(chalk.grey(`[SQLIZE] ${sqlFormatter.format(arg)}`));
