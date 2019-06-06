@@ -1,5 +1,5 @@
 {
-  "name": "applied-logger",
+  "name": "@applied/applied-logger",
   "version": "1.0.0",
   "description": "",
   "main": "dist/applied-logger.cjs.js",
