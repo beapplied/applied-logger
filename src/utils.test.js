@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const utils = require('./utils')
 
 
