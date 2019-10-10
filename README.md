@@ -7,6 +7,10 @@
 
 A simple logging utility that aims to make reading logs quickly locally as well as format our logs nicely for our log aggregation setup.
 
+## Installation
+
+`yarn add @applied/applied-logger`
+
 ## What can it do?
 
 Rather than replacing the global `console`, the logger works by wrapping it. This means that you need to import the Applied logger:
@@ -35,3 +39,11 @@ Theres also a special option:
 `logger.sql()`
 
 This will pretty print sql queries given to it.
+
+## Tests
+
+Unit tests can be run with `yarn run test`
+
+By default this skips the fuzz tests in the repo. These fuzz tests are run regularly but given that they are CPU intensive and slow they are not run by default.
+Why on earth did we add fuzz testing?
+Well, the logger is used throughout our production setup and it'd be really lame if it failed because it was passed a weird string/object. The fuzz tasting generates hundreds of strings, arrays, objects and JSON objects and ensures that the logger doesn't error out on those things.
