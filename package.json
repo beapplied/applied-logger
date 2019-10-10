@@ -16,6 +16,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@stryker-mutator/core": "^2.0.0",
+    "@stryker-mutator/javascript-mutator": "^2.0.0",
+    "@stryker-mutator/jest-runner": "^2.0.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^4.3.0",
@@ -26,9 +29,9 @@
     "jest": "^24.8.0",
     "prettier": "^1.17.1",
     "rollup": "^1.12.4",
-    "rollup-plugin-terser": "^5.0.0",
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "^5.0.1",
+    "rollup-plugin-terser": "^5.0.0",
     "testcheck": "^1.0.0-rc.2"
   },
   "dependencies": {
