@@ -1,33 +1,41 @@
+/* eslint-disable no-console */
+
 const chalk = require("chalk")
 
 module.exports = {
     error: {
         function: chalk.red,
-        text: "🤯   [ERROR] "
+        text: "🤯   [ERROR] ",
+        console: message => { console.error(message) }
     },
 
     warn: {
         function: chalk.yellow,
-        text: "⚠️   [WARN]  "
+        text: "⚠️   [WARN]  ",
+        console: message => { console.warn(message) }
     },
 
     debug: {
         function: chalk.blue,
-        text: "🕵️‍   [DEBUG] "
+        text: "🕵️‍   [DEBUG] ",
+        console: message => { console.log(message) }
     },
 
     info: {
         function: chalk.green,
-        text: "🧙‍   [INFO]  "
+        text: "🧙‍   [INFO]  ",
+        console: message => { console.info(message) }
     },
 
     sql: {
         function: chalk.grey,
-        text: "[SQLIZE] "
+        text: "[SQLIZE] ",
+        console: message => { console.log(message) }
     },
 
     log: {
         function: chalk.magenta,
-        text: "🌳  [LOG]   "
+        text: "🌳  [LOG]   ",
+        console: message => { console.log(message) }
     }
 }

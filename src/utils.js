@@ -53,7 +53,7 @@ exports.printer = (colorKey, input) => {
 
     if(!config[colorKey]) return exports.JSONifier(input)
 
-    return console.log(
+    config[colorKey].console(
         config[colorKey].function(`${config[colorKey].text} ${exports.JSONifier(input)}`)
     )
 }
