@@ -49,7 +49,7 @@ exports.checkForSpecifiError = inputs => {
     return inputs.length === 2 && inputs[0] instanceof Error && !!inputs[1].url
 }
 
-exports.printer = (colorKey, input) => {
+exports.printer = (colorKey, input) => { /* eslint-disable-line consistent-return */
 
     if(!config[colorKey]) return exports.JSONifier(input)
 
