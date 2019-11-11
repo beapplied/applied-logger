@@ -61,18 +61,18 @@ describe('printer method', ()=>{
 
     const dummyInput = 'oh look its an error'
     
-    const logSpy = jest.spyOn(console, "log")
+    const errorSpy = jest.spyOn(console, "error")
 
     afterEach(() => {
-        logSpy.mockClear()
+        errorSpy.mockClear()
     })
 
 
     test('it should take a key on the config and an error',()=>{
-       expect(console.log.mock.calls.length).toBe(0)
+       expect(console.error.mock.calls.length).toBe(0)
        utils.printer('error', dummyInput)
-       expect(console.log.mock.calls.length).toBe(1)
-       expect(console.log.mock.calls[0][0]).toContain(dummyInput)
+       expect(console.error.mock.calls.length).toBe(1)
+       expect(console.error.mock.calls[0][0]).toContain(dummyInput)
     })
 
     test('it should console wether the color key is in th object', ()=>{

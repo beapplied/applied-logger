@@ -7,30 +7,36 @@ const sqlFormatter = require('sql-formatter')
 const logger = require("./logger")
 
 const logSpy = jest.spyOn(console, "log")
+const errorSpy = jest.spyOn(console, "error")
+const warnSpy = jest.spyOn(console, "warn")
+const infoSpy = jest.spyOn(console, "info")
 
 afterEach(() => {
     logSpy.mockClear()
+    errorSpy.mockClear()
+    warnSpy.mockClear()
+    infoSpy.mockClear()
 })
 
 test("error uses the error pattern", () => {
-    expect(console.log.mock.calls.length).toBe(0)
+    expect(console.error.mock.calls.length).toBe(0)
     logger.error("error message")
-    expect(console.log.mock.calls.length).toBe(1)
-    expect(console.log.mock.calls[0][0]).toBe(chalk.red("🤯   [ERROR]  error message"))
+    expect(console.error.mock.calls.length).toBe(1)
+    expect(console.error.mock.calls[0][0]).toBe(chalk.red("🤯   [ERROR]  error message"))
 })
 
 test("warn uses the warn pattern", () => {
-    expect(console.log.mock.calls.length).toBe(0)
+    expect(console.warn.mock.calls.length).toBe(0)
     logger.warn("warn message")
-    expect(console.log.mock.calls.length).toBe(1)
-    expect(console.log.mock.calls[0][0]).toBe(chalk.yellow("⚠️   [WARN]   warn message"))
+    expect(console.warn.mock.calls.length).toBe(1)
+    expect(console.warn.mock.calls[0][0]).toBe(chalk.yellow("⚠️   [WARN]   warn message"))
 })
 
 test("info uses the info pattern", () => {
-    expect(console.log.mock.calls.length).toBe(0)
+    expect(console.info.mock.calls.length).toBe(0)
     logger.info("info message")
-    expect(console.log.mock.calls.length).toBe(1)
-    expect(console.log.mock.calls[0][0]).toBe(chalk.green("🧙‍   [INFO]   info message"))
+    expect(console.info.mock.calls.length).toBe(1)
+    expect(console.info.mock.calls[0][0]).toBe(chalk.green("🧙‍   [INFO]   info message"))
 })
 
 test("log uses the log pattern", () => {
@@ -107,21 +113,21 @@ test("logger.sql can deal with sql", () => {
 })
 
 test("logger can deal with multiple arguments", () => {
-    expect(console.log.mock.calls.length).toBe(0)
+    expect(console.error.mock.calls.length).toBe(0)
     logger.error('hello', 'test', [1,2,3])
-    expect(console.log.mock.calls.length).toBe(3)
-    expect(console.log.mock.calls[0][0]).toBe(chalk.red("🤯   [ERROR]  hello"))
-    expect(console.log.mock.calls[1][0]).toBe(chalk.red("🤯   [ERROR]  test"))
-    expect(console.log.mock.calls[2][0]).toBe(chalk.red(`🤯   [ERROR]  ${colorize([1,2,3], { pretty: true })}`))
+    expect(console.error.mock.calls.length).toBe(3)
+    expect(console.error.mock.calls[0][0]).toBe(chalk.red("🤯   [ERROR]  hello"))
+    expect(console.error.mock.calls[1][0]).toBe(chalk.red("🤯   [ERROR]  test"))
+    expect(console.error.mock.calls[2][0]).toBe(chalk.red(`🤯   [ERROR]  ${colorize([1,2,3], { pretty: true })}`))
 })
 
 test("if specific error log out once" ,()=>{
     const dummyError = new Error('narwhales are better then unicorns');
     const dummyRequest = {url: 'info-for-everything.com'}
     logger.error(dummyError, dummyRequest)
-    expect(console.log.mock.calls.length).toBe(1)
-    expect(console.log.mock.calls[0][0]).toContain("🤯   [ERROR]")
-    expect(console.log.mock.calls[0][0]).toContain("info-for-everything.com")
+    expect(console.error.mock.calls.length).toBe(1)
+    expect(console.error.mock.calls[0][0]).toContain("🤯   [ERROR]")
+    expect(console.error.mock.calls[0][0]).toContain("info-for-everything.com")
 })
 
 
@@ -129,9 +135,9 @@ test("if not specifc error return false" ,()=>{
     const dummyError = new Error('narwhales are better then unicorns');
     const dummyNotRequest = {noturl: 'info-for-everything.com'}
     logger.error(dummyError, dummyNotRequest)
-    expect(console.log.mock.calls.length).toBe(2)
-    expect(console.log.mock.calls[0][0]).toBe(chalk.red(`🤯   [ERROR]  ${dummyError.stack}`))
-    expect(console.log.mock.calls[0][0]).not.toContain('info-for-everything.com')
-    expect(console.log.mock.calls[1][0]).toContain('info-for-everything.com')
+    expect(console.error.mock.calls.length).toBe(2)
+    expect(console.error.mock.calls[0][0]).toBe(chalk.red(`🤯   [ERROR]  ${dummyError.stack}`))
+    expect(console.error.mock.calls[0][0]).not.toContain('info-for-everything.com')
+    expect(console.error.mock.calls[1][0]).toContain('info-for-everything.com')
 })
 
