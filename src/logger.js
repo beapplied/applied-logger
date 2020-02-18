@@ -6,7 +6,7 @@ const utils = require('./utils')
 
 const baseLog = (type, inputs) => {
     if (utils.checkForSpecifiError(inputs)) {
-        utils.printer(type, utils.constuctError(inputs[0], inputs[1]))
+        utils.printer(type, utils.constructError(type, inputs[0], inputs[1]))
     } else {
         inputs.forEach(arg => {
             utils.printer(type, arg)
@@ -14,15 +14,15 @@ const baseLog = (type, inputs) => {
     }
 }
 
-exports.error = (...inputs) => baseLog('error', inputs) 
+exports.error = (...inputs) => baseLog('ERROR', inputs) 
 
-exports.warn = (...inputs) => baseLog('warn', inputs) 
+exports.warn = (...inputs) => baseLog('WARN', inputs) 
 
-exports.info = (...inputs) => baseLog('info', inputs) 
+exports.info = (...inputs) => baseLog('INFO', inputs) 
 
-exports.log = (...inputs) => baseLog('log', inputs) 
+exports.log = (...inputs) => baseLog('LOG', inputs) 
 
-exports.debug = (...inputs) => baseLog('debug', inputs) 
+exports.debug = (...inputs) => baseLog('DEBUG', inputs) 
 
 // only bespoke thing
 exports.sql = (...inputs) => {

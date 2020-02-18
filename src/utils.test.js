@@ -70,7 +70,7 @@ describe('printer method', ()=>{
 
     test('it should take a key on the config and an error',()=>{
        expect(console.error.mock.calls.length).toBe(0)
-       utils.printer('error', dummyInput)
+       utils.printer('ERROR', dummyInput)
        expect(console.error.mock.calls.length).toBe(1)
        expect(console.error.mock.calls[0][0]).toContain(dummyInput)
     })
@@ -80,7 +80,7 @@ describe('printer method', ()=>{
     })
 })
 
-describe('constuctError method', ()=>{
+describe('constructError method', ()=>{
 
     const dummyErrObj =  {
         name: 'bob',
@@ -95,7 +95,7 @@ describe('constuctError method', ()=>{
     }
 
     test('it should be able to respond to an err and and err and req call',()=>{
-        expect(utils.constuctError(dummyErrObj)).toContain('i shot the sherrif')
-        expect(utils.constuctError(dummyErrObj, dummyreqObj)).toContain('somewhere@somewhere.com')
+        expect(utils.constructError("ERROR",dummyErrObj)).toContain('i shot the sherrif')
+        expect(utils.constructError("ERROR",dummyErrObj, dummyreqObj)).toContain('somewhere@somewhere.com')
     })
 })

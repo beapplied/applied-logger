@@ -21,13 +21,13 @@ exports.JSONifier = input => {
     return colorize(input, { pretty: true })
 }
 
-exports.constuctError = (err, req) => {
+exports.constructError = (type, err, req) => {
     const errJson = {
         name: err.name,
         message: err.message,
         stack: err.stack,
         context: err.context,
-        status: "ERROR"
+        status: type
     }
 
     if (req) {
@@ -49,11 +49,10 @@ exports.checkForSpecifiError = inputs => {
     return inputs.length === 2 && inputs[0] instanceof Error && !!inputs[1].url
 }
 
-exports.printer = (colorKey, input) => { /* eslint-disable-line consistent-return */
+exports.printer = (type, input) => { /* eslint-disable-line consistent-return */
+    if(!config[type]) return exports.JSONifier(input)
 
-    if(!config[colorKey]) return exports.JSONifier(input)
-
-    config[colorKey].console(
-        config[colorKey].function(`${config[colorKey].text} ${exports.JSONifier(input)}`)
+    config[type].console(
+        config[type].function(`${config[type].text} ${exports.JSONifier(input)}`)
     )
 }
