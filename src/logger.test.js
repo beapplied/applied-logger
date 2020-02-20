@@ -32,6 +32,14 @@ test("warn uses the warn pattern", () => {
     expect(console.warn.mock.calls[0][0]).toBe(chalk.yellow("⚠️   [WARN]   warn message"))
 })
 
+test("warn uses the warn pattern even if passed an error", () => {
+    expect(console.warn.mock.calls.length).toBe(0)
+    logger.warn(new Error("warn error"))
+    expect(console.warn.mock.calls.length).toBe(1)
+    expect(console.warn.mock.calls[0][0]).toContain("[WARN]")
+    expect(console.warn.mock.calls[0][0]).toContain("Error: warn error")
+})
+
 test("info uses the info pattern", () => {
     expect(console.info.mock.calls.length).toBe(0)
     logger.info("info message")
