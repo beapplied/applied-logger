@@ -1,6 +1,6 @@
 {
   "name": "@applied/applied-logger",
-  "version": "1.1.1-rc",
+  "version": "1.1.1",
   "description": "",
   "main": "dist/applied-logger.cjs.js",
   "module": "dist/applied-logger.esm.js",
