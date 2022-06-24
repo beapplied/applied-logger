@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
-
 const colorize = require("json-colorizer")
 const config = require("./config")
-
 
 
 exports.JSONifier = input => {
@@ -49,8 +47,16 @@ exports.checkForSpecifiError = inputs => {
     return inputs.length === 2 && inputs[0] instanceof Error && !!inputs[1].url
 }
 
-exports.printer = (type, input) => { /* eslint-disable-line consistent-return */
-    if(!config[type]) return exports.JSONifier(input)
+exports.printer = (tracer, type, input) => { /* eslint-disable-line consistent-return */
+if (tracer) {
+  const span = tracer.scope().active();
+
+  if (span) {
+    tracer.inject(span.context(), "log", exports.JSONifier(input));
+  }
+}
+
+if(!config[type]) return exports.JSONifier(input)
 
     config[type].console(
         config[type].function(`${config[type].text} ${exports.JSONifier(input)}`)

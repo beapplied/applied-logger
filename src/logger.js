@@ -4,12 +4,18 @@ const chalk = require("chalk")
 const sqlFormatter = require("sql-formatter")
 const utils = require('./utils')
 
+let tracerInstance = null
+
+exports.init = (tracer) => {
+    tracerInstance = tracer
+}
+
 const baseLog = (type, inputs) => {
     if (utils.checkForSpecifiError(inputs)) {
-        utils.printer(type, utils.constructError(type, inputs[0], inputs[1]))
+        utils.printer(tracerInstance, type, utils.constructError(type, inputs[0], inputs[1]))
     } else {
         inputs.forEach(arg => {
-            utils.printer(type, arg)
+            utils.printer(tracerInstance, type, arg)
         })
     }
 }
