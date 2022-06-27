@@ -47,7 +47,7 @@ exports.checkForSpecifiError = inputs => {
     return inputs.length === 2 && inputs[0] instanceof Error && !!inputs[1].url
 }
 
-exports.printer = (tracer, type, input) => { /* eslint-disable-line consistent-return */
+exports.printer = (tracer = null, type, input) => { /* eslint-disable-line consistent-return */
 if (tracer) {
   const span = tracer.scope().active();
 

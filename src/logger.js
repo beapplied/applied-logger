@@ -12,10 +12,10 @@ exports.init = (tracer) => {
 
 const baseLog = (type, inputs) => {
     if (utils.checkForSpecifiError(inputs)) {
-        utils.printer(tracerInstance, type, utils.constructError(type, inputs[0], inputs[1]))
+        utils.printer(tracerInstance, type,  utils.constructError(type, inputs[0], inputs[1]))
     } else {
-        inputs.forEach(arg => {
-            utils.printer(tracerInstance, type, arg)
+        inputs.forEach(input => {
+            utils.printer(tracerInstance, type, input)
         })
     }
 }

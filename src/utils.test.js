@@ -70,13 +70,13 @@ describe('printer method', ()=>{
 
     test('it should take a key on the config and an error',()=>{
        expect(console.error.mock.calls.length).toBe(0)
-       utils.printer('ERROR', dummyInput)
+       utils.printer(null,'ERROR', dummyInput)
        expect(console.error.mock.calls.length).toBe(1)
        expect(console.error.mock.calls[0][0]).toContain(dummyInput)
     })
 
     test('it should console wether the color key is in th object', ()=>{
-        expect(utils.printer('unicorn', dummyInput)).toContain(dummyInput)
+        expect(utils.printer(null,'unicorn', dummyInput)).toContain(dummyInput)
     })
 })
 
