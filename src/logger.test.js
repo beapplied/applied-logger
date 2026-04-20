@@ -113,7 +113,7 @@ test("logger.sql can deal with a string", () => {
 })
 
 test("logger.sql can deal with sql", () => {
-    const sql = 'SELECT * FROM "Feedbacks" f JOIN "Applications" a on f."ApplicationId" = a.id JOIN "Jobs" j on a."JobId" = j.id"'
+    const sql = 'SELECT * FROM "Feedbacks" f JOIN "Applications" a on f."ApplicationId" = a.id JOIN "Jobs" j on a."JobId" = j.id'
     expect(console.log.mock.calls.length).toBe(0)
     logger.sql(sql)
     expect(console.log.mock.calls.length).toBe(1)
